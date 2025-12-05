@@ -1,0 +1,23 @@
+{
+  "name": "gqlapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "type": "module",
+  "dependencies": {
+    "@apollo/server": "^5.1.0",
+    "graphql": "^16.12.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
