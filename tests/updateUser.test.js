@@ -7,10 +7,11 @@ import jwt from 'jsonwebtoken'
 test('updateData tests', async (t) => {
     await server.start()
 
-    await test('updateData updates existing user', async () => {
+    const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
+    const decodedToken = jwt.verify(token, "my_secret_key")
 
-        const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
-        const decodedToken = jwt.verify(token, "my_secret_key")
+
+    await test('updateData updates existing user', async () => {
 
         const idToUpdate = "4"
 
@@ -43,10 +44,6 @@ test('updateData tests', async (t) => {
     })
 
     await test('updateData updates a non-existent user (i.e. creates a new one)', async () => {
-
-
-        const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
-        const decodedToken = jwt.verify(token, "my_secret_key")
 
         const idToUpdate = "99"
 

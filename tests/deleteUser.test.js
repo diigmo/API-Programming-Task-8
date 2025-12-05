@@ -7,10 +7,10 @@ import jwt from 'jsonwebtoken'
 test('deleteData tests', async (t) => {
     await server.start()
 
-    await test('deleteData deletes user and returns removed user', async () => {
+    const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
+    const decodedToken = jwt.verify(token, "my_secret_key")
 
-        const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
-        const decodedToken = jwt.verify(token, "my_secret_key")
+    await test('deleteData deletes user and returns removed user', async () => {
 
         const id = "4";
         
@@ -47,10 +47,6 @@ test('deleteData tests', async (t) => {
 
 
     await test('Checking if an ID does not exist in the database', async () => {
-
-
-        const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
-        const decodedToken = jwt.verify(token, "my_secret_key")
 
         const id = "-1";
         

@@ -7,10 +7,11 @@ import { server } from '../apidefs.js'
 test('searchUser tests', async (t) => {
     await server.start()
 
-    await test('addData creates a new user when ID does not exist', async () => {
+    
+    const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
+    const decodedToken = jwt.verify(token, "my_secret_key")
 
-        const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
-        const decodedToken = jwt.verify(token, "my_secret_key")
+    await test('addData creates a new user when ID does not exist', async () => {
 
         const mutation = `
             mutation {
@@ -37,10 +38,6 @@ test('searchUser tests', async (t) => {
 
     await test('addData returns error when ID already exists', async () => {
 
-
-        const { token } = JSON.parse(fs.readFileSync('./tests/token.json', 'utf-8'))
-        const decodedToken = jwt.verify(token, "my_secret_key")
-
         const mutation = `
             mutation {
                 addData(id: 1, forename: "Add", surname: "Data") {
@@ -52,7 +49,6 @@ test('searchUser tests', async (t) => {
             { query: mutation },
             { contextValue: { user: decodedToken.username } }
         )
-
 
         const errors = response.body.singleResult.errors
         assert.ok(errors.length > 0)
